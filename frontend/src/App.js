@@ -1,5 +1,5 @@
 import React, { useEffect,useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import './styles/global.css';
 import Team from './pages/team';
 import Music from './pages/music';
