@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import MusicCard from '../components/music-card';
-import songs from '../lib/songs';
+import songs from '../components/songs';
 
 function Music() {
   const [searchTerm, setSearchTerm] = useState('');
