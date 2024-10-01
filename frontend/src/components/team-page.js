@@ -1,13 +1,8 @@
 import React from 'react';
-import { getAuthUrl } from '../api/spotifyAuth';
 import TeamMember from './team-member';
 
 const TeamPage = ({ teamMembers }) => {
-  const handleSpotifyLogin = () => {
-    const authUrl = getAuthUrl();
-    window.location.href = authUrl;
-  };
-
+ 
   return (
     <div className="bg-black text-white min-h-screen py-12">
       <div className="container mx-auto px-4">
@@ -19,12 +14,6 @@ const TeamPage = ({ teamMembers }) => {
           ))}
         </div>
         <div className="flex justify-center mt-12">
-          <button 
-            onClick={handleSpotifyLogin}
-            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Login with Spotify
-          </button>
         </div>
       </div>
     </div>

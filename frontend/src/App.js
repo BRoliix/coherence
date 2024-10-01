@@ -4,7 +4,6 @@ import './styles/global.css';
 import Team from './pages/team';
 import Music from './pages/music';
 import NotFound from './components/NotFound';
-import SpotifyCallback from './components/SpotifyCallback';
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
@@ -29,8 +28,7 @@ function App() {
         <Route path="*" element={<Team />} /> 
         <Route path="/" element={<Team />} />
         <Route path="/music" element={<Music />} />
-        <Route path="/callback" element={<SpotifyCallback />} />
-        <Route path="/404" element={<NotFound />} />
+        <Route path="/error" element={<NotFound />} />
       </Routes>
     </Router>
   );
