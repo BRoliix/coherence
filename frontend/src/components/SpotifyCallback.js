@@ -6,21 +6,19 @@ const SpotifyCallback = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const code = new URLSearchParams(window.location.search).get('code');
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    
     if (code) {
-      getAccessToken(code)
-        .then((data) => {
-          localStorage.setItem('spotifyAccessToken', data.access_token);
-          navigate('/music');
-        })
-        .catch((error) => {
-          console.error('Error during Spotify authentication:', error);
-          navigate('/');
-        });
+      console.log('Received Spotify auth code:', code);
+      // Here you would exchange the code for an access token
+      // This should be done on your backend to keep your client secret secure
+      // For now, we'll just simulate a successful login
+      navigate('/music');
     }
   }, [navigate]);
 
-  return <div>Authenticating with Spotify...</div>;
+  return <div>Processing Spotify login...</div>;
 };
 
 export default SpotifyCallback;

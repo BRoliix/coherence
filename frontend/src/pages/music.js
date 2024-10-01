@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import MusicCard from '../components/music-card';
-import songs from '../lib/songs'
+import songs from '../lib/songs';
 
 function Music() {
   const [searchTerm, setSearchTerm] = useState('');

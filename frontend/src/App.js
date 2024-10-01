@@ -1,9 +1,28 @@
-import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import React, { useEffect,useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import './styles/global.css';
 import Team from './pages/team';
 import Music from './pages/music';
+import NotFound from './components/NotFound';
 import SpotifyCallback from './components/SpotifyCallback';
+import LoadingScreen from './components/LoadingScreen';
+
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // Adjust time as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (isLoading) {
+    return <LoadingScreen />;
+  }
+
   return (
     <Router>
       <Routes>
@@ -11,6 +30,7 @@ function App() {
         <Route path="/" element={<Team />} />
         <Route path="/music" element={<Music />} />
         <Route path="/callback" element={<SpotifyCallback />} />
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </Router>
   );
