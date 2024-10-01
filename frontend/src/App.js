@@ -25,10 +25,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="*" element={<Team />} /> 
+        <Route path="*" element={<NotFound />} /> 
         <Route path="/" element={<Team />} />
         <Route path="/music" element={<Music />} />
-        <Route path="/error" element={<NotFound />} />
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </Router>
   );
