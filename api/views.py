@@ -1,5 +1,11 @@
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
-def search(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+# search/views.py
+from django.http import JsonResponse
+from .search import a_star_search
+
+def search_music(request):
+    query = request.GET.get('q', '')
+    if query:
+        results = a_star_search(query)
+        return JsonResponse({'results': results})
+    else:
+        return JsonResponse({'error': 'No query provided'}, status=400)
