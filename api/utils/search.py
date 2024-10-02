@@ -1,22 +1,22 @@
 # search/utils.py
+import json as js
 import pandas as pd
 from fuzzywuzzy import fuzz
 import heapq
 
-# Sample data (You can fetch this from the database instead)
-data = {
-    'song': ['Blinding Lights', 'Shape of You', 'Levitating', 'Rockstar'],
-    'artist': ['The Weeknd', 'Ed Sheeran', 'Dua Lipa', 'DaBaby'],
-    'popularity': [90, 85, 80, 75]  # Popularity score
-}
+# Load the songs from songs.json
+with open('./api/utils/songs.json') as f:
+    data = js.load(f)
+
 
 df = pd.DataFrame(data)
 
+# print(df.head())
 # A* search algorithm
 def a_star_search(query):
     pq = []
     for idx, row in df.iterrows():
-        song_heuristic = fuzz.partial_ratio(query.lower(), row['song'].lower())
+        song_heuristic = fuzz.partial_ratio(query.lower(), row['title'].lower())
         artist_heuristic = fuzz.partial_ratio(query.lower(), row['artist'].lower())
         h = max(song_heuristic, artist_heuristic)
         g = 100 - row['popularity']

@@ -3,7 +3,7 @@ import React from 'react';
 function MusicCard({ song, onSelect }) {
     return (
       <div 
-        className="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors"
+        className="bg-gray-800 p-4 rounded-lg cursor-pointer hover:bg-gray-700 transition-colors border border-pink-500"
         onClick={() => onSelect(song)}
       >
         <h2 className="text-xl font-semibold truncate">{song.title}</h2>

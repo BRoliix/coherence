@@ -1,11 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import YouTube from 'react-youtube';
 import MusicCard from '../components/music-card';
-import songs from '../components/songs';
+
+const SearchForm = ({ setResults }) => {
+  const [query, setQuery] = useState('');
+
+  const handleSearch = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/search/?q=${query}`);
+      const data = await response.json();
+      setResults(data.results); 
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSearch} className="mb-4 ">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value) }
+        placeholder="Search for music..."
+        className="p-2 rounded border border-gray-300 text-black "
+      />
+      <button type="submit" className="ml-2 p-2 bg-pink-500 text-white rounded ">Search</button>
+    </form>
+  );
+};
+
+
 
 function Music() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedSong, setSelectedSong] = useState(null);
+  const [results, setResults] = useState([]);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
@@ -23,10 +54,20 @@ function Music() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const filteredSongs = songs.filter(song =>
-    song.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    song.artist.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+ 
+  const fetchResults = async (searchQuery) => {
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/search/?q=${searchQuery}`);
+      const data = await response.json();
+      setResults(data.results);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+    }
+  };
+  
+  useEffect(() => {
+    fetchResults('*');
+  }, []);
 
   const handleSongSelect = (song) => {
     setSelectedSong(song);
@@ -52,48 +93,21 @@ function Music() {
 
   return (
     <div className="min-h-screen p-4 md:p-8 bg-black text-white">
-      <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center text-pink-500">Coherence</h1>
-      <div className="mb-8">
-        <input
-          type="text"
-          placeholder="Search songs or artists..."
-          className="w-full p-2 rounded-lg bg-gray-800 text-white border border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredSongs.map((song, index) => (
-          <MusicCard 
-            key={index} 
-            song={song}
-            onSelect={handleSongSelect}
-          />
+      <h1 className="text-4xl md:text-6xl font-bold mb-4 text-center text-pink-500">Coherence :3 </h1>
+      <SearchForm setResults={setResults} />
+      <div className="mb-8 grid grid-cols-4 gap-4 p-4">
+        {results.map((song) => (
+          <MusicCard key={song.id} song={song} onClick={() => handleSongSelect(song)} />
         ))}
       </div>
       {selectedSong && (
-        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
-          <div className="bg-gray-800 rounded-lg overflow-hidden max-w-4xl w-full">
-            <div className="p-4 bg-gray-700">
-              <h2 className="text-2xl font-bold">{selectedSong.title}</h2>
-              <p className="text-gray-300">{selectedSong.artist}</p>
-            </div>
-            <div className="relative pt-[56.25%]">
-              <YouTube
-                videoId={getYoutubeId(selectedSong.url)}
-                opts={opts}
-                className="absolute top-0 left-0 w-full h-full"
-              />
-            </div>
-            <div className="p-4 flex justify-between items-center">
-              <p className="text-pink-500">Popularity: {selectedSong.popularity}</p>
-              <button 
-                onClick={closePopup}
-                className="bg-pink-500 text-white px-4 py-2 rounded hover:bg-pink-600 transition-colors"
-              >
-                Close
-              </button>
-            </div>
+        <div className="popup">
+          <div className="popup-inner">
+            <h1>{selectedSong.title}</h1>
+            <p>{selectedSong.artist}</p>
+            <p>Popularity: {selectedSong.popularity}</p>
+            <YouTube videoId={getYoutubeId(selectedSong.url)} opts={opts} />
+            <button onClick={closePopup}>Close</button>
           </div>
         </div>
       )}
