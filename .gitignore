@@ -164,3 +164,4 @@ cython_debug/
 
 # Node Modules
 node_modules/
+.vscode/settings.json
