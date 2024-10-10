@@ -12,7 +12,8 @@
         "config": {
           "distDir": "staticfiles"
         }
-      }
+      },
+      { "src": "backend/manage.py", "use": "@vercel/python" }
     ],
     "routes": [
       {
