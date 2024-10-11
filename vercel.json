@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/static/(.*)",
+      "dest": "/frontend/build/static/$1"
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "/backend/wsgi.py"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/build/$1"
+    }
+  ],
+  "buildCommand": "cd frontend && npm install && npm run build && cd ../backend && /usr/bin/python3 -m pip install -r requirements.txt && /usr/bin/python3 manage.py collectstatic --noinput",
+  "outputDirectory": "frontend/build"
+}
