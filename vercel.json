@@ -14,6 +14,6 @@
       "dest": "/frontend/build/$1"
     }
   ],
-  "buildCommand": "cd frontend && npm install && npm run build && cd ../backend && /usr/bin/python3 -m pip install -r requirements.txt && /usr/bin/python3 manage.py collectstatic --noinput",
+  "buildCommand": "source new_env && cd frontend && npm install && npm run build && cd ../backend && /usr/bin/python3 -m pip install -r requirements.txt && /usr/bin/python3 manage.py collectstatic --noinput",
   "outputDirectory": "frontend/build"
 }
