@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import YouTube from 'react-youtube';
-import SearchBar from '../components/ SearchBar'
-import MusicCard from '../components/music-card';
+import SearchBar from '../components/ SearchBar';
 import FloatingParticles from '../components/FloatingParticles';
+import MusicCard from '../components/music-card';
 
 function Music() {
   const [selectedSong, setSelectedSong] = useState(null);
@@ -45,6 +46,7 @@ function Music() {
   };
 
   return (
+    
     <div 
       className="min-h-screen p-4 md:p-8 bg-cover bg-no-repeat bg-center w-full"
       style={{
@@ -61,6 +63,9 @@ function Music() {
       }}
     >
       <FloatingParticles />
+      <Link to="/astar" className="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600 transition-colors">
+          View Data Graph
+      </Link>
       <h1 className="text-6xl font-bold mb-8 text-center text-cyan-300">Coherence</h1>
       <div className="max-w-4xl mx-auto mb-8">
         <SearchBar onSearch={fetchResults} />
