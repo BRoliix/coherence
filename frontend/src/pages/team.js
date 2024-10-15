@@ -5,14 +5,14 @@ const teamMembers = [
     id: 1,
     name: "Rohil Sagar",
     role: "Full Stack Developer",
-    image: "/assets/rohil.png",
+    image: "/assets/rohil.jpg",
     bio: "Transforms innovative ideas into reality through code and creativity."
   },
   {
     id: 2,
     name: "Sara Vartak",
     role: "Frontend Developer",
-    image: "/assets/sara.jpg",
+    image: "/assets/sara.png",
     bio: " Creates stunning designs and translates them into flawless code. "
   },
   {
